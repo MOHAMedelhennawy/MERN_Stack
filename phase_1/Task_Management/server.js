@@ -27,6 +27,6 @@ const server = createServer((req, res) => {
   });
 });
 
-server.listen(PORT, _ => {
+server.listen(PORT, '0.0.0.0', _ => {
   console.log(`Server running now on http://localhost:${PORT}`);
 });

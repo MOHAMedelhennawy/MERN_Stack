@@ -1,0 +1,16 @@
+{
+  "name": "digging_into_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ex1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "get-stdin": "^9.0.0",
+    "minimist": "^1.2.8"
+  }
+}
