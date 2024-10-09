@@ -1,0 +1,12 @@
+npm i nodemon -g                =>  To install nodemon globlally to access it from anywhere
+npm i nodemon@{version}         =>  To install specific version
+npm view nodemon version        =>  The last version
+npm view nodemon versions       =>  all versions
+npm update                      =>  Update all the minor backage versions
+npm list -g                     =>  List installed packages
+npm list -g --depth=0   
+npm outdated -g                 =>  Details about packages
+npm view nodemon dependencies   =>  List all dependencies of package
+npm un nodemon                  =>  To uninstall
+npm adduser                     =>  Login in npm account
+npm publish                     =>  Publish to npm account

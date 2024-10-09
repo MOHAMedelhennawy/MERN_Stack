@@ -1,0 +1,98 @@
+module scope VS global scope
+
+to explain let's first write our two modules:
+
+```first_module.js
+
+var x = 5;
+var z = 10;
+function sum() {return 1 + 5}
+
+module.exports = {
+    x,
+    sum,
+}
+
+global.x = 100;
+global.g_var = 200;
+
+console.log(x)
+```
+
+```second_module.js
+
+var other = require('./first_module.js');
+
+
+console.log(x)  // 100
+console.log(other.x)  // 5
+```
+
+
+Every moudle has it's own module scope. But the global is shared between all.
+So, if you run the `second_module.js`. it's go to read the file and execute if.
+
+The first output is 5, because the `first_module.js` it's executes first, and
+node.js it's first looks for this `x` on the current module scope, if find the varibale
+it's print it. Otherwise, it's moves to globale varibale it look there.
+
+Whatever, it's find the variable and then print it on the console. Then return object of
+exported variables and functions. That mean is now other hold a object of two properties:
+`{x: 5, sum: [Function: sum]}`, this object it's save now on `second_module` module scope.
+
+Moving the the `console.log(x)` line, it's print the second output `100'.
+Why?. because as we says that node.js search on moudle scope first, in this case
+it's try to look in current module and it's not find it. So it moves to find it
+in the global scope and then print it.
+
+Finally in the last line it's print `5`, because as we says that other now is object
+we don't now any thing about the other file expect that is returns on this `other` object.
+
+But what if add one more line at the end of file that define `x` variable there using `var`?
+
+
+```second_module.js
+
+var other = require('./first_module.js');
+
+
+console.log(x)
+console.log(other.x)  // 5
+
+
+var x = "What do you expect?;
+```
+
+Wait for second and think...
+
+The output will be `undefined`. Why?
+Because the `var` is hosted, it's mean that the module know that the `var x` is definenig somewhere, but it's not has value yet
+
+
+Let's make another change and define `x` using `const` or `let`:
+```second_module.js
+
+var other = require('./first_module.js');
+
+
+console.log(x)
+console.log(other.x)  // 5
+
+
+let x = "What do you expect?;
+```
+
+Now, what did you expect?
+The output will be: `ReferenceError: Cannot access 'x' before initialization`
+
+OMG! rigth?. That happen because he knows that he has x in somehwere on he's modules.
+but they remain in a TDZ until their assignment. Accessing them before initialization results in a ReferenceError.
+As he said that he't can access `x` before initialize it, because `let` and `const` it's don't hosted as `var`.
+
+
+
+Summary:
+module scope is the private scope of each module, that no module know's anything about him untile you
+determine what should the other modules knows using exports.
+
+The global scope is shared between all modules. But you should be aware how to use it to avoid any unexpected behavours

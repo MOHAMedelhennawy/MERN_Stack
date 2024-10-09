@@ -1,0 +1,53 @@
+{
+  "name": "ajx",
+  "version": "0.1.0",
+  "description": "Simple fetch library for me.",
+  "engines": {
+    "node": ">=4"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "docs": "opener docs/index.html",
+    "lint": "eslint lib test",
+    "postversion": "git push && git push --tags",
+    "pretest": "npm run -s lint",
+    "preversion": "npm test",
+    "test": "npm run -s test_",
+    "test_": "electron-mocha \"test/*.js\" --compilers js:babel-register --inline-diffs --renderer --reporter progress --timeout 10000",
+    "update-docs": "rimraf docs && jsdoc -c .jsdocrc.json",
+    "watch": "chokidar \"{lib,test}/**/*.js\" --initial --command \"npm run -s test_\""
+  },
+  "dependencies": {
+    "event-target-shim": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-power-assert": "^1.0.0",
+    "babel-register": "^6.23.0",
+    "chokidar-cli": "^1.2.0",
+    "co": "^4.6.0",
+    "electron": "^1.6.1",
+    "electron-mocha": "^3.3.0",
+    "eslint": "^3.16.1",
+    "eslint-config-mysticatea": "^8.0.0",
+    "express": "^4.15.0",
+    "jsdoc": "^3.4.3",
+    "mocha": "^3.2.0",
+    "opener": "^1.4.3",
+    "power-assert": "^1.4.2",
+    "rimraf": "^2.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mysticatea/ajx.git"
+  },
+  "keywords": [],
+  "author": "Toru Nagashima",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mysticatea/ajx/issues"
+  },
+  "homepage": "https://github.com/mysticatea/ajx#readme"
+}

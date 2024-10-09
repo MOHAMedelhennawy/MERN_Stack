@@ -1,0 +1,19 @@
+{
+  "name": "ch.3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajx": "^0.1.0",
+    "express": "^4.21.0",
+    "nodemon": "^3.1.7"
+  }
+}
