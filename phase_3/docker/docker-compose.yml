@@ -1,0 +1,15 @@
+# docker run --name express-app-container -v $PWD/src:/app/src:ro -d -p 4000:4000 express-node-app
+# docker run --name express-app-container -v $PWD/src:/app/src:ro --env PORT=4000 --env DB_HSOT=344 -d -p 4000:4000 express-node-app
+# docker run --name express-app-container -v $PWD/src:/app/src:ro --env-file -d -p 4000:4000 express-node-app
+version: "3"
+services:
+  app:
+    container_name: express-app-container
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./.env
+
+# commands:
+  # docker-comopse up -d
+  # docker-compose down

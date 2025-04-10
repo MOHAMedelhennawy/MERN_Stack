@@ -1,0 +1,9 @@
+vesrion: "3"
+services:
+  app:
+    build:
+      context: .
+      target: production
+    evironment:
+      - NODE_ENV=production
+    command: npm start

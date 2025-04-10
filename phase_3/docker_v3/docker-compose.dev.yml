@@ -1,0 +1,13 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      target: development
+    volumes:
+      - ./src:/app/src:ro
+    environment:
+      - NODE_ENV=development
+    command: npm run start-dev
+
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
