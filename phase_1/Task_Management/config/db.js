@@ -4,6 +4,7 @@ const DB_PATH = new URL('../data/db.json', import.meta.url).pathname
 
 export const getDB = async _ => {
     const db = await fs.readFile(DB_PATH, 'utf-8');
+
     return JSON.parse(db);
 }
 
