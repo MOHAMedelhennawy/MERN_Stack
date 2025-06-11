@@ -1,7 +1,8 @@
+// Functional component
 import Product from './product';
 
-const App = () => {
+const Product = () => {
     return ( <Product/> );
 }
 
-export default App;
+export default Product;
