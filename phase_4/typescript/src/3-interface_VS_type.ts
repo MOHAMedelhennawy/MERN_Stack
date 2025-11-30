@@ -1,13 +1,23 @@
 // ======================================= interface =======================================
 interface Person {
-    name: string,
-    age: number,
+    name: string;
+    age: number;
+}
+
+let john: Person = {
+    name: "John Doe",
+    age: 30
 };
 
-const person: Person = {
-    name: "Mohammed",
-    age: 23,
+function greet(person: Person): string {
+    return `Hello, my name is ${person.name} and I am ${person.age} years old.`;
 };
+
+console.log(greet(john));
+
+// john = 4; // error
+// john.age = "stri"; // valid
+
 
 // ======================================= type =======================================
 type myType = number | string;
