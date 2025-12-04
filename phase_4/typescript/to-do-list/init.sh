@@ -1,7 +1,7 @@
 # initialize pakcage.json
 npm init -y
 npm install express dotenv
-npm install -D typescript ts-node @types/node @types/express nodemon eslit prettier
+npm install -D typescript ts-node @types/node @types/express nodemon prettier
 echo 'node_modules' > .gitignore
 
 # initialize typescript
@@ -24,4 +24,9 @@ EDIT_PACKAGE_SCR=./scripts/edit_json.sh
 $EDIT_PACKAGE_SCR build tsc
 $EDIT_PACKAGE_SCR start "node dist/server.js"
 $EDIT_PACKAGE_SCR dev "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts"
-$EDIT_PACKAGE_SCR lint "eslit 'src/**/*.ts'"
+
+# Eslint setup
+npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+npx eslint --init
+$EDIT_PACKAGE_SCR lint "eslint"
+
