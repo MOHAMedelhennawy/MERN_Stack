@@ -14,8 +14,22 @@ if [ ! -d scripts ]; then
 fi
 
 if [ ! -f scripts/edit_json.sh ]; then
-     touch scripts/edit_json.sh
-     chmod +x scripts/edit_json.sh
+    mkdir -p scripts
+    touch scripts/edit_json.sh
+
+    cat << EOF > scripts/edit_json.sh
+#!/bin/bash
+
+# Bash script to either add or remove the test script in package.json
+PACKAGE_JSON_PATH="./package.json"
+SCRIPT_KEY=\$1
+SCRIPT_VALUE=\$2
+
+TMP_FILE=\$(mktemp)
+jq ".scripts.\${SCRIPT_KEY} = \"\${SCRIPT_VALUE}\"" "\$PACKAGE_JSON_PATH" > "\$TMP_FILE" && mv "\$TMP_FILE" "\$PACKAGE_JSON_PATH"
+EOF
+
+    chmod +x scripts/edit_json.sh
 fi
 
 # Initialize scripts in json 
@@ -26,7 +40,59 @@ $EDIT_PACKAGE_SCR start "node dist/server.js"
 $EDIT_PACKAGE_SCR dev "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts"
 
 # Eslint setup
-npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+npm install --save-dev eslint @eslint/js typescript-eslint
 npx eslint --init
 $EDIT_PACKAGE_SCR lint "eslint"
 
+if [ ! -f eslint.config.js ]; then
+    touch eslint.config.js
+    cat << EOF > eslint.config.js
+// @ts-check
+
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
+
+export default defineConfig([
+  // JS recommended rules
+  eslint.configs.recommended,
+
+  // TS strict rules (type-aware)
+  ...tseslint.configs.strict,
+
+  // TS stylistic rules
+  ...tseslint.configs.stylistic,
+
+  {
+    files: ["**/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        project: true, // enables type-aware rules
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+
+  // custom project rules
+  {
+    rules: {
+      indent: ["error", "tab"],
+      quotes: ["error", "double"],
+      semi: ["error", "always"],
+      "no-unused-vars": "warn",
+      "no-console": "off",
+      "no-debugger": "warn",
+
+      // better for TS readability
+      "arrow-body-style": "off",
+
+      // keep ESLint version (TS version is disabled in strict mode)
+      "require-await": "error",
+    },
+  },
+]);
+EOF
+
+# Create dirs
+mkdir -p src/{config,controllers,middlewares,models,routes}
+touch src/{app.ts,server.ts}

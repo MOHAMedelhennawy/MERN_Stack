@@ -1,28 +1,43 @@
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+// @ts-check
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import js from "@eslint/js";
+// import globals from "globals";
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
-export default ([
-    {
-        parser: '@typescript-eslint/parser',
-        parserOptions: {
-            project: './tsconfig.json',
-            tsconfigRootDir: __dirname,
-            sourceType: 'module',
-        },
-        plugins: ['@typescript-eslint'],
-        extends: [
-            'eslint:recommended',
-            'plugin:@typescript-eslint/recommended',
-        ],
-        rules: {
-            // Custom rules can be added here
-        },
+export default defineConfig([
+  // JS recommended rules
+  eslint.configs.recommended,
+
+  // TS strict rules (type-aware)
+  ...tseslint.configs.strict,
+
+  // TS stylistic rules
+  ...tseslint.configs.stylistic,
+
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    plugins: { js },
+    extends: ["js/recommended"],
+    // languageOptions: { globals: globals.browser },
+    languageOptions: {
+      parserOptions: {
+        project: true, // enables type-aware rules
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
-    {
-        files: ['**/*.ts'],
+  },
+
+  // custom project rules
+  {
+    rules: {
+      indent: ["error", "tab"],
+      quotes: ["error", "double"],
+      semi: ["error", "always"],
+      "no-debugger": "warn",
+      "arrow-body-style": "off",
+      "require-await": "error",
     },
-    
+  },
 ]);

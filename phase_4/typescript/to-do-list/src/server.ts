@@ -1,1 +1,2 @@
-let hel = "hello";
+const hel = "hello";
+console.log(hel)
