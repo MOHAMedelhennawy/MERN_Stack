@@ -94,5 +94,5 @@ export default defineConfig([
 EOF
 
 # Create dirs
-mkdir -p src/{config,controllers,middlewares,models,routes}
+mkdir -p src/{config,controllers,middlewares,models,routes,services}
 touch src/{app.ts,server.ts}
