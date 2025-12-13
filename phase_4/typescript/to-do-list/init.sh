@@ -1,7 +1,7 @@
 # initialize pakcage.json
 npm init -y
 npm install express dotenv
-npm install -D typescript ts-node @types/node @types/express nodemon prettier
+npm install -D typescript ts-node @types/express nodemon prettier
 echo 'node_modules' > .gitignore
 
 # initialize typescript
@@ -96,3 +96,24 @@ EOF
 # Create dirs
 mkdir -p src/{config,controllers,middlewares,models,routes,services}
 touch src/{app.ts,server.ts}
+
+# Initialize prisma
+npm install prisma @types/pg --save-dev
+npm install @prisma/client @prisma/adapter-pg pg
+
+# cat << EOF > tsconfig.json
+# {
+#   "compilerOptions": {
+#     "target": "ES2023",
+#     "module": "ESNext",
+#     "outDir": "./dist",
+#     "rootDir": "./src",
+#     "strict": true,
+#     "esModuleInterop": true,
+#     "skipLibCheck": true,
+#     "forceConsistentCasingInFileNames": true
+#   }
+# }
+# EOF
+
+npx prisma init --db --output ./src/prisma
