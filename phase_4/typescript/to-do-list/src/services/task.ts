@@ -1,15 +1,22 @@
-import tasksDomData from "../data/tasks.ts";
-import type { ITask } from "../models/task.ts";
+import pkg from "@prisma/client";
+const { PrismaClient } = pkg;
 
-export const getAllTasksService = (): ITask[] => {
-    return tasksDomData;
-};
+const prisma = new PrismaClient();
 
-export const getTaskByIDService = (id: string): ITask => {
-    const res = tasksDomData.find((task) => task.id === id);
-    if (!res) {
-        throw new Error("Task not found");
-    }
+export class TaskService {
+    public async getAllTasks() {
+        return prisma.findMany.Task();
+    };
 
-    return res;
-};
+    public async getTaskByID(id: string) {
+        return prisma.findMany.Task({
+            where: { id }
+        });
+    };
+
+    public async deleteTaskByID(id: string) {
+        return prisma.delete.Task({
+            where: { id },
+        });
+    };
+}

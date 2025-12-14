@@ -1,5 +1,4 @@
-import tasksDomData from "../data/tasks.ts";
-import { getAllTasksService, getTaskByIDService } from "../services/task.ts";
+import { TaskService } from "../services/task.ts";
 
 export const TaskStatus = {
     PENDING: 'pending',
@@ -14,6 +13,7 @@ export interface ITask {
     status: TaskStatus;
     createdAt: Date;
     updatedAt: Date;
+    // taskService: TaskService;
 };
 
 interface ITaskMethods {
@@ -24,13 +24,13 @@ interface ITaskMethods {
     // add new task
     addNewTask(data: ITask): ITask[];
     // // update task name
-    // updateTaskStatus(id: string, status: TaskStatus): ITask;
+    updateTaskStatus(id: string, status: TaskStatus): ITask;
     // // update task status
-    // updateTaskName(id: string, name: TaskStatus): ITask;
+    updateTaskName(id: string, name: TaskStatus): ITask;
     // // delete task
-    // deleteTaskBydID(id: string): boolean;
+    deleteTaskBydID(id: string): boolean;
     // // clean all tasks
-    // cleanAllTasks(): boolean;
+    cleanAllTasks(): boolean;
 }
 
 class Task implements ITask, ITaskMethods {
@@ -46,29 +46,11 @@ class Task implements ITask, ITaskMethods {
         this.status = TaskStatus.PENDING;
         this.createdAt = new Date();
         this.updatedAt = new Date();
-
-        this.addNewTask();
+        // this.taskService = new TaskService();
     }
 
-    static getAllTasks(): ITask[] {
-        return getAllTasksService();
-    }
-
-    // get task by id
-    static getTaskByID(id: string): ITask {
-        return getTaskByIDService(id);
-    }
-
-    // add new task
-    addNewTask(): ITask[] {
-        let task = {};
-
-        for (const key of Object.keys(this)) {
-            task[key] = this[key as keyof Task];
-        }
-
-        tasksDomData.push(task);
-        return tasksDomData;
+    getAllTasks(): ITask[] {
+        
     }
 }
 
