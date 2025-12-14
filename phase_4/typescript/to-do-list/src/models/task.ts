@@ -1,4 +1,4 @@
-import { TaskService } from "../services/task.ts";
+// import { TaskService } from "../services/task.js";
 
 export const TaskStatus = {
     PENDING: 'pending',
@@ -47,10 +47,6 @@ class Task implements ITask, ITaskMethods {
         this.createdAt = new Date();
         this.updatedAt = new Date();
         // this.taskService = new TaskService();
-    }
-
-    getAllTasks(): ITask[] {
-        
     }
 }
 
