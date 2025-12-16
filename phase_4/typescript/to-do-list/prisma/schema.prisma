@@ -5,20 +5,21 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma/client"
+  provider   = "prisma-client-js"
+  engineType = "binary"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Task {
-  id String @id @default(uuid())
-  title String
-  status TaskStatus
-  createdAt DateTime
-  updatedAt DateTime
+  id        String     @id @default(uuid())
+  title     String
+  status    TaskStatus @default(PENDING)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 enum TaskStatus {

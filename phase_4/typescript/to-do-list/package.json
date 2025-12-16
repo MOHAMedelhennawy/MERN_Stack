@@ -31,14 +31,14 @@
     "nodemon": "^3.1.11",
     "npm": "^11.6.4",
     "prettier": "^3.7.4",
-    "prisma": "^7.1.0",
+    "prisma": "^5.9.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.1"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.1.0",
-    "@prisma/client": "^7.1.0",
+    "@prisma/client": "^5.9.1",
     "@prisma/config": "^7.1.0",
     "global": "^4.4.0",
     "pg": "^8.16.3"
